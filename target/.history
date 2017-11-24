@@ -1,0 +1,9 @@
+run
+exit
+run
+exit
+run
+compile
+run
+h2-browser
+run

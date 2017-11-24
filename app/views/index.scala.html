@@ -1,0 +1,67 @@
+@* Parameters *@
+@(products: List[models.Product])
+
+<!-- Pass page title and content {html between braces} to the main view -->
+@main("Products Page") {
+  
+  @* Display successful new product message from flash - if set *@
+  @if(flash.containsKey("success")) {
+    <div class="alert alert-success">
+      @flash.get("success")
+    </div>
+  }
+
+  <!-- HTML content for the index view -->
+  <table class="table table-bordered table-hover table-condensed">
+  
+  <thead>
+  
+  <!-- The header row-->
+  
+  <tr>
+  
+  <th>ID</th>
+  
+  <th>Name</th>
+  
+  <th>Description</th>
+  
+  <th>Stock</th>
+  
+  <th>Price</th>
+  
+  </tr>
+  
+  </thead>
+  
+  <tbody>
+  
+  <!-- Product row(s) -->
+  @* Start of for loop *@
+  @* add an HTML table row <tr> for each p in the product list *@
+
+  @for(p <- products) {
+    <tr>
+      <td>@p.getId</td>
+      <td>@p.getName</td>
+      <td>@p.getDescription</td>
+      <td>@p.getStock</td>
+      <td class="numeric">&euro; @("%.2f".format(p.getPrice))</td>
+      <!-- Delete product button -->
+      <td>
+        <a href="@routes.HomeController.deleteProduct(p.getId)" class="button-xs btn-danger" onclick="return confirmDel();">
+          <span class="fa fa-trash"></span>
+        </a>
+      </td>
+    </tr>
+  } @* End of Loop *@
+  </tbody>
+  
+  </table>
+  
+  <p>
+    <a href="@routes.HomeController.addProduct()">
+      <button type="button" class="btn btn-primary">Add a product</button>
+    </a>
+  </p>
+  }
