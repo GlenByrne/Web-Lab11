@@ -9,6 +9,9 @@ GET     /addProduct                 controllers.HomeController.addProduct
 # Data submitted b the form
 POST    /addProductSubmit           controllers.HomeController.addProductSubmit
 
+# Update a product by id
+GET     /updateProduct/:id          controllers.HomeController.updateProduct(id: String)
+
 #Delete a product by an id passed as a parameter
 GET     /deleteProduct/:id          controllers.HomeController.deleteProduct(id: String)
 

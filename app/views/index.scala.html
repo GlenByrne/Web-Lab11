@@ -47,6 +47,13 @@
       <td>@p.getDescription</td>
       <td>@p.getStock</td>
       <td class="numeric">&euro; @("%.2f".format(p.getPrice))</td>
+
+      <!-- Edit product button -->
+      <td>
+        <a href="@routes.HomeController.updateProduct(p.getId)" class="button-xs btn-danger">
+          <span class="fa fa-pencil"></span>
+        </a>
+      </td>
       <!-- Delete product button -->
       <td>
         <a href="@routes.HomeController.deleteProduct(p.getId)" class="button-xs btn-danger" onclick="return confirmDel();">

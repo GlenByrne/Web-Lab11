@@ -1,4 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0mC:\Users\gleno\Documents\College Work\Year 2\Semester 1\Web And Mobile Design And Development\webapps\playapps\WMDD1Lab8CRUD\app\views\index.scala.html:52:26: value HoemController is not a member of object controllers.routes[0m
-[0m[[0m[31merror[0m] [0m[0m        <a href="@routes.HoemController.deleteProduct(p.getId)" class="button-xs btn-danger" onclick="return confirmDel();">[0m
-[0m[[0m[31merror[0m] [0m[0m                         ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\gleno\Documents\College Work\Year 2\Semester 1\Web And Mobile Design And Development\webapps\playapps\WMDD1Lab8CRUD\app\views\index.scala.html:53:41: value updateProducts is not a member of controllers.ReverseHomeController[0m
+[0m[[0m[31merror[0m] [0m[0m        <a href="@routes.HomeController.updateProducts(p.getId)" class="button-xs btn-danger">[0m
+[0m[[0m[31merror[0m] [0m[0m                                        ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
