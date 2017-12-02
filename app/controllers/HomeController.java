@@ -35,13 +35,25 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-    public Result index() {
+    public Result index(String cat) {
 
         // Get the list of products
-        List<Product> productsList = Product.findAll();
+        List<Product> productList = null;
+
+        // Get list of all categories in ascending order
+        List<Category> categoryList = Category.findAll();
+
+        if (cat == "0") {
+            // Get list of all prouducts
+            productList = Product.findAll();
+        } else {
+            // Get products for selected category: find category first,
+            // the extract products for that category
+            productList = Category.find.ref(cat).getProduct();
+        }
 
         // Render the list products view, passing parameters
-        return ok(index.render(productsList));
+        return ok(index.render(productList, categoryList));
     }
 
     public Result addProduct() {
@@ -76,7 +88,8 @@ public class HomeController extends Controller {
             // Set a success message in flash
             flash("success", "Product "+ newProduct.getName() + " was added");
 
-            return redirect(controllers.routes.HomeController.index());
+            //Redirect to the index page
+            return redirect(controllers.routes.HomeController.index("0"));
         }
     }
 
@@ -89,7 +102,7 @@ public class HomeController extends Controller {
         flash("success", "Product has been deleted");
 
         // Redirect to index page
-        return redirect(routes.HomeController.index());
+        return redirect(routes.HomeController.index("0"));
     }
 
     @Transactional

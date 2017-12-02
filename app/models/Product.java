@@ -18,6 +18,9 @@ private String id;
 @Constraints.Required
 private String name;
 
+@ManyToOne
+private Category category;
+
 @Constraints.Required
 private String description;
 
@@ -35,11 +38,13 @@ public Product() {
 
 // Constructor to initialise object
 
-public Product(String id, String name, String description, int stock, double price) {
+public Product(String id, String name, Category category, String description, int stock, double price) {
 
 this.id = id;
 
 this.name = name;
+
+this.category = category;
 
 this.description = description;
 
@@ -115,6 +120,14 @@ public void setPrice(double price) {
 
 this.price = price;
 
+}
+
+public Category getCategory(){
+    return category;
+}
+
+public void setCategory(Category category){
+    this.category = category;
 }
 
 }

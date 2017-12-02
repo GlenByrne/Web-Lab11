@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:C:/Users/gleno/Documents/College Work/Year 2/Semester 1/Web And Mobile Design And Development/webapps/playapps/WMDD1Lab9CRUD/conf/routes
-// @DATE:Fri Nov 24 23:37:28 GMT 2017
+// @SOURCE:C:/Users/gleno/Documents/College Work/Year 2/Semester 1/Web And Mobile Design And Development/webapps/playapps/WMDD1Lab10CRUD/conf/routes
+// @DATE:Sat Dec 02 20:34:05 GMT 2017
 
 import play.api.mvc.Call
 
@@ -18,6 +18,12 @@ package controllers {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
+  
+    // @LINE:6
+    def index(cat:String = "0"): Call = {
+      
+      Call("GET", _prefix + play.core.routing.queryString(List(if(cat == "0") None else Some(implicitly[play.api.mvc.QueryStringBindable[String]].unbind("cat", cat)))))
+    }
   
     // @LINE:10
     def addProductSubmit(): Call = {
@@ -41,12 +47,6 @@ package controllers {
     def deleteProduct(id:String): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "deleteProduct/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)))
-    }
-  
-    // @LINE:6
-    def index(): Call = {
-      
-      Call("GET", _prefix)
     }
   
   }

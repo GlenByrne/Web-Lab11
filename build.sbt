@@ -1,4 +1,4 @@
-name := """WMDD1Lab9CRUD"""
+name := """WMDD1Lab10CRUD"""
 organization := "com.example"
 
 version := "1.0-SNAPSHOT"
