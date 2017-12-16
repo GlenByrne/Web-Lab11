@@ -11,6 +11,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import models.*;
+import models.users.*;
 
 import views.html.*;
 
@@ -53,16 +54,24 @@ public class HomeController extends Controller {
         }
 
         // Render the list products view, passing parameters
-        return ok(index.render(productList, categoryList));
+        return ok(index.render(productList, categoryList, User.getUserById(session().get("email"))));
     }
 
+    @Security.Authenticated(Secured.class)
+    // Authorise user (check if admin)
+    @With(AuthAdmin.class)
+    @Transactional
     public Result addProduct() {
         // Create a form by wrapping the Product class in a FormFactory form instance
         Form<Product> productForm = formFactory.form(Product.class);
 
-        return ok(addProduct.render(productForm));
+        return ok(addProduct.render(productForm, User.getUserById(session().get("email"))));
     }
 
+    @Security.Authenticated(Secured.class)
+    // Authorise user (check if admin)
+    @With(AuthAdmin.class)
+    @Transactional
     public Result addProductSubmit() {
 
         // Retrieve the submitted form object (bind from the HTTP request)
@@ -71,7 +80,7 @@ public class HomeController extends Controller {
         // Check for errors (based on constraints set in the Product class)
         if(newProductForm.hasErrors()) {
             // Display the form again by returning a bad request
-            return badRequest(addProduct.render(newProductForm));
+            return badRequest(addProduct.render(newProductForm, User.getUserById(session().get("email"))));
         } else {
             // No errors found - extract the Product details from the form
             Product newProduct = newProductForm.get();
@@ -93,6 +102,10 @@ public class HomeController extends Controller {
         }
     }
 
+    @Security.Authenticated(Secured.class)
+    // Authorise user (check if admin)
+    @With(AuthAdmin.class)
+    @Transactional
     public Result deleteProduct(String id){
 
         // find product by id and call delete method
@@ -105,6 +118,9 @@ public class HomeController extends Controller {
         return redirect(routes.HomeController.index("0"));
     }
 
+    @Security.Authenticated(Secured.class)
+    // Authorise user (check if admin)
+    @With(AuthAdmin.class)
     @Transactional
     public Result updateProduct(String id) {
 
@@ -123,7 +139,7 @@ public class HomeController extends Controller {
             return badRequest("error");
         }
         // Render the updateProduct view - pass form as parameter
-        return ok(addProduct.render(productForm));
+        return ok(addProduct.render(productForm, User.getUserById(session().get("email"))));
     }
 
 }

@@ -10,3 +10,9 @@ run
 h2-browser
 exit
 run
+exit
+run
+h2-browser
+run
+h2-browser
+run

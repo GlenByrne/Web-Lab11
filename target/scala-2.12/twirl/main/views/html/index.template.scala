@@ -22,36 +22,36 @@ import play.mvc.Http.Context.Implicit._
 import play.data._
 import play.core.j.PlayFormsMagicForJava._
 
-object index extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template2[List[models.Product],List[models.Category],play.twirl.api.HtmlFormat.Appendable] {
+object index extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template3[List[models.Product],List[models.Category],models.users.User,play.twirl.api.HtmlFormat.Appendable] {
 
   /* Parameters */
-  def apply/*1.19*/(products: List[models.Product], categories: List[models.Category]):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*1.19*/(products: List[models.Product], categories: List[models.Category], user: models.users.User):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
 
-Seq[Any](format.raw/*1.86*/("""
+Seq[Any](format.raw/*1.111*/("""
 
 """),format.raw/*3.1*/("""<!-- Pass page title and content """),format.raw/*3.34*/("""{"""),format.raw/*3.35*/("""html between braces"""),format.raw/*3.54*/("""}"""),format.raw/*3.55*/(""" """),format.raw/*3.56*/("""to the main view -->
-"""),_display_(/*4.2*/main("Products Page")/*4.23*/ {_display_(Seq[Any](format.raw/*4.25*/("""
+"""),_display_(/*4.2*/main("Products Page", user)/*4.29*/ {_display_(Seq[Any](format.raw/*4.31*/("""
 
-"""),format.raw/*6.1*/("""<p class="lead">Product Catalogue</p>
-<div class="row">
+"""),format.raw/*6.1*/("""<div class="row">
   <div class="col-sm-2">
     <h4>Categories</h4>
     <div class="list-group">
       <!-- A link to display all the products -->
-      <a href=""""),_display_(/*12.17*/routes/*12.23*/.HomeController.index("0")),format.raw/*12.49*/("""" class="list-group-item">All categories</a>
+      <a href=""""),_display_(/*11.17*/routes/*11.23*/.HomeController.index("0")),format.raw/*11.49*/("""" class="list-group-item">All categories</a>
       <!-- Start of for loop - for each c in categories add a list item  -->
       <!-- Also show the number of products in each category -->
-      """),_display_(/*15.8*/for(c
-      <- categories) yield /*16.21*/{_display_(Seq[Any](format.raw/*16.22*/(""" 
-        """),format.raw/*17.9*/("""<a href=""""),_display_(/*17.19*/routes/*17.25*/.HomeController.index(c.getId)),format.raw/*17.55*/("""" class="list-group-item">"""),_display_(/*17.82*/c/*17.83*/.getName),format.raw/*17.91*/("""
-        """),format.raw/*18.9*/("""<span class="badge">"""),_display_(/*18.30*/c/*18.31*/.getProduct.size()),format.raw/*18.49*/("""</span>
+      """),_display_(/*14.8*/for(c <- categories) yield /*14.28*/{_display_(Seq[Any](format.raw/*14.29*/(""" 
+        """),format.raw/*15.9*/("""<a href=""""),_display_(/*15.19*/routes/*15.25*/.HomeController.index(c.getId)),format.raw/*15.55*/("""" class="list-group-item">"""),_display_(/*15.82*/c/*15.83*/.getName),format.raw/*15.91*/("""
+        """),format.raw/*16.9*/("""<span class="badge">"""),_display_(/*16.30*/c/*16.31*/.getProduct.size()),format.raw/*16.49*/("""</span>
       </a>
-        """)))}),format.raw/*20.10*/("""
-    """),format.raw/*21.5*/("""</ul>
+        """)))}),format.raw/*18.10*/("""
+    """),format.raw/*19.5*/("""</ul>
   </div>
+    </div>
+  
   <div class="col-sm-10">
     """),format.raw/*24.69*/(""" """),_display_(/*24.71*/if(flash.containsKey("success"))/*24.103*/ {_display_(Seq[Any](format.raw/*24.105*/("""
     """),format.raw/*25.5*/("""<div class="alert alert-success">
@@ -97,25 +97,27 @@ Seq[Any](format.raw/*1.86*/("""
             <td class="numeric">&euro; """),_display_(/*66.41*/("%.2f".format(p.getPrice))),format.raw/*66.68*/("""</td>
 
             <!-- Edit product button -->
-            <td>
-              <a href=""""),_display_(/*70.25*/routes/*70.31*/.HomeController.updateProduct(p.getId)),format.raw/*70.69*/("""" class="button-xs btn-danger">
+            """),_display_(/*69.14*/if(user != null)/*69.30*/{_display_(Seq[Any](format.raw/*69.31*/("""
+            """),format.raw/*70.13*/("""<td>
+              <a href=""""),_display_(/*71.25*/routes/*71.31*/.HomeController.updateProduct(p.getId)),format.raw/*71.69*/("""" class="button-xs btn-danger">
                 <span class="fa fa-pencil"></span>
               </a>
             </td>
             <!-- Delete product button -->
             <td>
-              <a href=""""),_display_(/*76.25*/routes/*76.31*/.HomeController.deleteProduct(p.getId)),format.raw/*76.69*/("""" class="button-xs btn-danger" onclick="return confirmDel();">
+              <a href=""""),_display_(/*77.25*/routes/*77.31*/.HomeController.deleteProduct(p.getId)),format.raw/*77.69*/("""" class="button-xs btn-danger" onclick="return confirmDel();">
                 <span class="fa fa-trash"></span>
               </a>
             </td>
-        </tr>
-        """)))}),format.raw/*81.10*/(""" """),format.raw/*81.28*/("""
-      """),format.raw/*82.7*/("""</tbody>
+          """)))}),format.raw/*81.12*/("""
+        """),format.raw/*82.9*/("""</tr>
+        """)))}),format.raw/*83.10*/(""" """),format.raw/*83.28*/("""
+      """),format.raw/*84.7*/("""</tbody>
 
     </table>
 
     <p>
-      <a href=""""),_display_(/*87.17*/routes/*87.23*/.HomeController.addProduct()),format.raw/*87.51*/("""">
+      <a href=""""),_display_(/*89.17*/routes/*89.23*/.HomeController.addProduct()),format.raw/*89.51*/("""">
         <button type="button" class="btn btn-primary">Add a product</button>
       </a>
     </p>
@@ -126,9 +128,9 @@ Seq[Any](format.raw/*1.86*/("""
     }
   }
 
-  def render(products:List[models.Product],categories:List[models.Category]): play.twirl.api.HtmlFormat.Appendable = apply(products,categories)
+  def render(products:List[models.Product],categories:List[models.Category],user:models.users.User): play.twirl.api.HtmlFormat.Appendable = apply(products,categories,user)
 
-  def f:((List[models.Product],List[models.Category]) => play.twirl.api.HtmlFormat.Appendable) = (products,categories) => apply(products,categories)
+  def f:((List[models.Product],List[models.Category],models.users.User) => play.twirl.api.HtmlFormat.Appendable) = (products,categories,user) => apply(products,categories,user)
 
   def ref: this.type = this
 
@@ -137,11 +139,11 @@ Seq[Any](format.raw/*1.86*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Sat Dec 02 20:35:40 GMT 2017
-                  SOURCE: C:/Users/gleno/Documents/College Work/Year 2/Semester 1/Web And Mobile Design And Development/webapps/playapps/WMDD1Lab10CRUD/app/views/index.scala.html
-                  HASH: 88ad349d181a0283e3848f06fcf0ac27d34eb80d
-                  MATRIX: 997->18|1159->85|1187->87|1247->120|1275->121|1321->140|1349->141|1377->142|1424->164|1453->185|1492->187|1520->189|1747->389|1762->395|1809->421|2029->615|2071->641|2110->642|2147->652|2184->662|2199->668|2250->698|2304->725|2314->726|2343->734|2379->743|2427->764|2437->765|2476->783|2535->811|2567->816|2640->925|2669->927|2711->959|2752->961|2784->966|2851->1007|2865->1012|2901->1027|2933->1032|2975->1044|3008->1050|3455->1492|3484->1564|3524->1577|3558->1595|3598->1597|3627->1598|3676->1620|3686->1621|3713->1627|3763->1650|3773->1651|3802->1659|3852->1682|3862->1683|3903->1703|3953->1726|3963->1727|3999->1742|4049->1765|4059->1766|4089->1775|4162->1821|4210->1848|4326->1937|4341->1943|4400->1981|4631->2185|4646->2191|4705->2229|4909->2402|4938->2420|4972->2427|5047->2475|5062->2481|5111->2509
-                  LINES: 28->1|33->1|35->3|35->3|35->3|35->3|35->3|35->3|36->4|36->4|36->4|38->6|44->12|44->12|44->12|47->15|48->16|48->16|49->17|49->17|49->17|49->17|49->17|49->17|49->17|50->18|50->18|50->18|50->18|52->20|53->21|56->24|56->24|56->24|56->24|57->25|58->26|58->26|58->26|59->27|60->28|62->30|90->58|90->59|91->60|91->60|91->60|91->60|92->61|92->61|92->61|93->62|93->62|93->62|94->63|94->63|94->63|95->64|95->64|95->64|96->65|96->65|96->65|97->66|97->66|101->70|101->70|101->70|107->76|107->76|107->76|112->81|112->81|113->82|118->87|118->87|118->87
+                  DATE: Sat Dec 16 20:34:49 GMT 2017
+                  SOURCE: C:/Users/gleno/Documents/College Work/Year 2/Semester 1/Web And Mobile Design And Development/webapps/playapps/WMDD1Lab11CRUD/app/views/index.scala.html
+                  HASH: 46ab17845c636a13a5c0f065cb65eaebffad2b46
+                  MATRIX: 1015->18|1203->110|1231->112|1291->145|1319->146|1365->165|1393->166|1421->167|1468->189|1503->216|1542->218|1570->220|1759->382|1774->388|1821->414|2041->608|2077->628|2116->629|2153->639|2190->649|2205->655|2256->685|2310->712|2320->713|2349->721|2385->730|2433->751|2443->752|2482->770|2541->798|2573->803|2660->926|2689->928|2731->960|2772->962|2804->967|2871->1008|2885->1013|2921->1028|2953->1033|2995->1045|3028->1051|3475->1493|3504->1565|3544->1578|3578->1596|3618->1598|3647->1599|3696->1621|3706->1622|3733->1628|3783->1651|3793->1652|3822->1660|3872->1683|3882->1684|3923->1704|3973->1727|3983->1728|4019->1743|4069->1766|4079->1767|4109->1776|4182->1822|4230->1849|4318->1910|4343->1926|4382->1927|4423->1940|4479->1969|4494->1975|4553->2013|4784->2217|4799->2223|4858->2261|5050->2422|5086->2431|5132->2446|5161->2464|5195->2471|5270->2519|5285->2525|5334->2553
+                  LINES: 28->1|33->1|35->3|35->3|35->3|35->3|35->3|35->3|36->4|36->4|36->4|38->6|43->11|43->11|43->11|46->14|46->14|46->14|47->15|47->15|47->15|47->15|47->15|47->15|47->15|48->16|48->16|48->16|48->16|50->18|51->19|56->24|56->24|56->24|56->24|57->25|58->26|58->26|58->26|59->27|60->28|62->30|90->58|90->59|91->60|91->60|91->60|91->60|92->61|92->61|92->61|93->62|93->62|93->62|94->63|94->63|94->63|95->64|95->64|95->64|96->65|96->65|96->65|97->66|97->66|100->69|100->69|100->69|101->70|102->71|102->71|102->71|108->77|108->77|108->77|112->81|113->82|114->83|114->83|115->84|120->89|120->89|120->89
                   -- GENERATED --
               */
           

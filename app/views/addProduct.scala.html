@@ -1,8 +1,8 @@
-@(productForm: Form[models.Product])
+@(productForm: Form[models.Product], user: models.users.User)
 
 @import helper._
 
-@main("Add product") {
+@main("Add product", user) {
     <p class="lead">Add a new product</p>
 
     @form(action=routes.HomeController.addProductSubmit(), 'class -> "form-horizontal", 'role -> "form") {

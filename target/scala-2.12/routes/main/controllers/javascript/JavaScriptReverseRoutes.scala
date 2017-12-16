@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:C:/Users/gleno/Documents/College Work/Year 2/Semester 1/Web And Mobile Design And Development/webapps/playapps/WMDD1Lab10CRUD/conf/routes
-// @DATE:Sat Dec 02 20:34:05 GMT 2017
+// @SOURCE:C:/Users/gleno/Documents/College Work/Year 2/Semester 1/Web And Mobile Design And Development/webapps/playapps/WMDD1Lab11CRUD/conf/routes
+// @DATE:Sat Dec 16 17:14:01 GMT 2017
 
 import play.api.routing.JavaScriptReverseRoute
 
@@ -72,8 +72,8 @@ package controllers.javascript {
   
   }
 
-  // @LINE:19
-  class ReverseAssets(_prefix: => String) {
+  // @LINE:18
+  class ReverseLoginController(_prefix: => String) {
 
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
@@ -81,6 +81,46 @@ package controllers.javascript {
 
   
     // @LINE:19
+    def loginSubmit: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.LoginController.loginSubmit",
+      """
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "loginSubmit"})
+        }
+      """
+    )
+  
+    // @LINE:20
+    def logout: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.LoginController.logout",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "logout"})
+        }
+      """
+    )
+  
+    // @LINE:18
+    def login: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.LoginController.login",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "login"})
+        }
+      """
+    )
+  
+  }
+
+  // @LINE:23
+  class ReverseAssets(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:23
     def versioned: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Assets.versioned",
       """
